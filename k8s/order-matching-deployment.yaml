@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-matching-engine
+  labels:
+    app: order-matching
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: order-matching
+  template:
+    metadata:
+      labels:
+        app: order-matching
+    spec:
+      containers:
+        - name: go-engine
+          image: 123456789012.dkr.ecr.ap-south-1.amazonaws.com/order-matching:latest
+          resources:
+            requests:
+              cpu: "1000m"
+              memory: "2Gi"
+            limits:
+              cpu: "4000m"
+              memory: "8Gi"
+          ports:
+            - containerPort: 9000
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: order-matching-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: order-matching-engine
+  minReplicas: 4
+  maxReplicas: 16
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
