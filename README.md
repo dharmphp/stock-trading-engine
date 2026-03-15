@@ -13,4 +13,4 @@ A low-latency electronic trading platform built for institutional and retail bro
 - **Desktop Prototype**: Low-latency Rust + Wails / Tauri trading terminal experiment.
 - **Cloud & Streaming**: Apache Kafka event streaming and Kubernetes HPA deployment manifests.
 
-Author: Dharmesh Patel <dharmkp@gmail.com> (CTO, AC Agarwal)
+Created by Dharmesh Patel <dharmkp@gmail.com> (CTO, AC Agarwal).
